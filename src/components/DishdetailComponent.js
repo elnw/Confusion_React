@@ -2,7 +2,7 @@ import React from 'react';
 import { row } from 'reactstrap';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody,CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link} from 'react-router-dom';
-
+import  CommentForm from './CommentFormComponent.js';
 
 
 const DishDetail= (props)=>{
@@ -30,7 +30,7 @@ const DishDetail= (props)=>{
 				<div className="col-12 col-sm-12 col-md-5 m-1">
 					<h4>Comments</h4>
 					<div>
-						<RenderComments comments={props.comments} />							
+						<RenderComments comments={props.comments} />	
 					</div>
 				</div>
 			</div>
@@ -76,12 +76,13 @@ const DishDetail= (props)=>{
 					<div>
 						{listaComentarios}
 					</div>
+					<CommentForm />
 				</ul>
 			</div>
 		);
 		}else{
 			return(
-			<div></div>);
+			<CommentForm />);
 		}
 	}
 
