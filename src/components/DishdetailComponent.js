@@ -1,16 +1,30 @@
 import React from 'react';
-import { row } from 'reactstrap';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody,CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody,CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link} from 'react-router-dom';
 import  CommentForm from './CommentFormComponent.js';
-
+import { Loading } from './LoadingComponent';
+import { baseUrl } from '../Shared/BaseURL';
 
 const DishDetail= (props)=>{
-		if(props.dish == null){
-			return(
-				<div></div>
-			);
-		}else{
+	if (props.isLoading) {
+            return(
+                <div className="container">
+                    <div className="row">            
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+        else if (props.errMess) {
+            return(
+                <div className="container">
+                    <div className="row">            
+                        <h4>{props.errMess}</h4>
+                    </div>
+                </div>
+            );
+        }
+        else if (props.dish != null){
 			return(
 			<div className="row">
 				
@@ -30,12 +44,17 @@ const DishDetail= (props)=>{
 				<div className="col-12 col-sm-12 col-md-5 m-1">
 					<h4>Comments</h4>
 					<div>
-						<RenderComments comments={props.comments} />	
+						<RenderComments comments={props.comments} addComment={ props.addComment}
+							dishId={ props.dish.id}/>	
 					</div>
 				</div>
 			</div>
 		);
-		}	
+		}else{
+			return(
+				<div></div>
+			);
+		}
 		
 	}
 	
@@ -43,7 +62,7 @@ const DishDetail= (props)=>{
 		if(dish != null){
 		return (
 			<Card>
-				<CardImg width="100%" src={dish.image} alt={dish.name} />
+				 <CardImg top src={baseUrl + dish.image} alt={dish.name} />
 				<CardBody>
 					<CardTitle>{dish.name}</CardTitle>
 					<CardText>{dish.description}</CardText>
@@ -52,13 +71,13 @@ const DishDetail= (props)=>{
 		);
 		}else{
 			return(
-				<div>				
+				<div>
 				</div>
 			);
 		}
 	}
 	
-	function RenderComments({comments}){
+	function RenderComments({comments, addComment, dishId}){
 		
 		if(comments != null){
 			const listaComentarios = comments.map((comment) =>{
@@ -69,6 +88,8 @@ const DishDetail= (props)=>{
 				</div>
 			);
 		});
+			
+			 
 		
 		return(
 			<div>
@@ -76,13 +97,13 @@ const DishDetail= (props)=>{
 					<div>
 						{listaComentarios}
 					</div>
-					<CommentForm />
+					<CommentForm dishId={ dishId} addComment={ addComment} />
 				</ul>
 			</div>
 		);
 		}else{
 			return(
-			<CommentForm />);
+			<CommentForm dishId={ dishId} addComment={ addComment}  />);
 		}
 	}
 

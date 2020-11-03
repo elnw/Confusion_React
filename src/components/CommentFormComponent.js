@@ -1,5 +1,5 @@
 import React, {Component } from 'react';
-import {Button, Modal, ModalHeader, ModalBody, Label, Input, Col, Row} from 'reactstrap';
+import {Button, Modal, ModalHeader, ModalBody, Label, Col, Row} from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -10,6 +10,7 @@ class CommentForm extends Component{
 	constructor(props){
 		super(props);
 		this.toggleModal = this.toggleModal.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 		this.state = {
 			isModalOpen: false
 		};
@@ -21,12 +22,17 @@ class CommentForm extends Component{
 		});
 	}
 	
+	handleSubmit(values){
+		this.toggleModal();
+		this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+		
+	}
+	
 	render(){
 		var stars = [];
 		for (var i = 1; i <= 5; i++) {
   			stars.push(<option value={i}>{i}</option>);
 		}
-		
 		
 		return(
 		<div className="mt-2">
