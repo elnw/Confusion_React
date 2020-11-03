@@ -2,14 +2,9 @@ import * as ActionTypes from './ActionTypes';
 import { DISHES } from '../Shared/dishes';
 import { baseUrl } from '../Shared/BaseURL';
 
-export const addComment = (dishId, rating, author, comment) => ({
-	type: ActionTypes.ADD_COMMENT,
-	payload: {
-		dishId: dishId,
-		rating: rating,
-		author: author,
-		comment: comment
-	}
+export const addComment = (comment) => ({
+    type: ActionTypes.ADD_COMMENT,
+    payload: comment
 });
 
 //crear una funcion arrow que retorne una funcion arrow
@@ -118,7 +113,6 @@ export const addPromos = (promos) => ({
 });
 
 export const postComment = (dishId, rating, author, comment) => (dispatch) => {
-
     const newComment = {
         dishId: dishId,
         rating: rating,
