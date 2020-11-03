@@ -77,7 +77,7 @@ const DishDetail= (props)=>{
 		}
 	}
 	
-	function RenderComments({comments, addComment, dishId}){
+	function RenderComments({comments, postComment, dishId}) {
 		
 		if(comments != null){
 			const listaComentarios = comments.map((comment) =>{
@@ -97,13 +97,13 @@ const DishDetail= (props)=>{
 					<div>
 						{listaComentarios}
 					</div>
-					<CommentForm dishId={ dishId} addComment={ addComment} />
+					<CommentForm dishId={dishId} postComment={postComment} />
 				</ul>
 			</div>
 		);
 		}else{
 			return(
-			<CommentForm dishId={ dishId} addComment={ addComment}  />);
+			<CommentForm dishId={ dishId} postComment={ postComment}  />);
 		}
 	}
 
